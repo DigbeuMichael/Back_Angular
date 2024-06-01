@@ -1,4 +1,4 @@
-let Assignment = require('../model/assignment');
+let Assignment = require('../models/assignment');
 let ObjectId = require('mongodb').ObjectID;
 
 // Récupérer tous les assignments (GET)
@@ -51,7 +51,7 @@ function getAssignment(req, res){
 }
 
 // Ajout d'un assignment (POST)
-function postAssignment(req, res){
+/*function postAssignment(req, res){
     let assignment = new Assignment();
     assignment._id = new ObjectId();
     assignment.nom = req.body.nom;
@@ -67,8 +67,22 @@ function postAssignment(req, res){
         }
         res.json({ message: `${assignment.nom} saved!`})
     })
-}
-
+}*/
+// Ajout d'un assignment (POST)
+function postAssignment(req, res) {
+    let assignment = new Assignment(req.body); // Use req.body for all properties
+  
+    console.log("POST assignment reçu :");
+    console.log(assignment);
+  
+    assignment.save((err) => {
+      if (err) {
+        res.send('cant post assignment ', err);
+      } else {
+        res.json({ message: `${assignment.nom} saved!` });
+      }
+    });
+  }
 // Update d'un assignment (PUT)
 function updateAssignment(req, res) {
     console.log("UPDATE recu assignment : ");
@@ -97,6 +111,9 @@ function deleteAssignment(req, res) {
     })
 }
 
+function hello(req, res){
+    res.send('Hello World!');
+}
 
 
-module.exports = { getAssignments, postAssignment, getAssignment, updateAssignment, deleteAssignment };
+module.exports = { getAssignments, postAssignment, getAssignment, updateAssignment, deleteAssignment,hello };
