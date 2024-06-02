@@ -11,12 +11,10 @@ var aggregatePaginate = require("mongoose-aggregate-paginate-v2");
     }, {collection: 'assignments'});*/
 
     let AssignmentSchema = Schema({
-        dateDeRendu: Date,
-        nom: String,
-        auteur: {
-            nom: String,
-            photo: String
-        },
+        dateDeRendue: Date,
+        nom: String, 
+        auteur_nom: String,
+        auteur_photo: String,
         matiere: String,
         imageMatiere: String,
         photoProfesseur: String,
@@ -27,13 +25,10 @@ var aggregatePaginate = require("mongoose-aggregate-paginate-v2");
             required: true
         },
         rendu: {
-            etat: {
+
                 type: String,
                 enum: ['En cours', 'Rendu'],
                 default: 'En cours'
-            },
-            note: Number,
-            dateRendu: Date
         },
         remarques: String
         }, {collection: 'assignments'});
